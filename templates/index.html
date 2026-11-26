@@ -2,16 +2,273 @@
 <html lang="en">
 <head>
     <meta charset="UTF-8">
-    <title>Interactive Demo</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>CredWise AI – Loan Eligibility Dashboard</title>
+
+    <!-- Google Font -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&family=JetBrains+Mono:wght@400;600&display=swap" rel="stylesheet">
+
+    <!-- Font Awesome 6 -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css">
+
+    <!-- Main CSS -->
     <link rel="stylesheet" href="/static/style.css">
 </head>
 <body>
-    <div class="container">
-        <h1>Interactive Input Demo</h1>
-        <textarea id="userInput" placeholder="Type something..." rows="4"></textarea>
-        <button id="sendBtn">Send</button>
-        <pre id="output" class="output"></pre>
+
+    <!-- ==================== HEADER ==================== -->
+    <header>
+        <div style="display:flex;align-items:center;gap:.5rem;flex-wrap:wrap;">
+            <div class="logo">
+                <i class="fas fa-brain"></i> CredWise AI
+            </div>
+            <span class="subtitle">Intelligent Loan Eligibility Assessment</span>
+            <span class="badge">AI v2.0</span>
+        </div>
+        <div class="right-header">
+            <div class="status">
+                <span class="dot"></span> Engine Online
+            </div>
+            <button class="doc-btn" onclick="window.open('https://github.com/prajjwal34/loanify','_blank')">
+                <i class="fas fa-book"></i> Docs
+            </button>
+        </div>
+    </header>
+
+    <!-- ==================== MAIN ==================== -->
+    <div class="main">
+
+        <!-- ========== FORM CARD ========== -->
+        <section class="form-card">
+            <h2><i class="fas fa-clipboard-list"></i> Applicant Information</h2>
+            <p class="form-subtitle">Fill in the details below or use a quick preset to get started.</p>
+
+            <!-- QUICK PRESETS -->
+            <div class="preset-bar">
+                <button class="preset-btn" data-preset="prime">
+                    <i class="fas fa-star"></i> Prime Applicant
+                </button>
+                <button class="preset-btn" data-preset="moderate">
+                    <i class="fas fa-exclamation-triangle"></i> Moderate Risk
+                </button>
+                <button class="preset-btn" data-preset="high">
+                    <i class="fas fa-times-circle"></i> High Risk
+                </button>
+            </div>
+
+            <!-- SECTION A – Demographics -->
+            <div class="section">
+                <h3><i class="fas fa-user"></i> Demographics</h3>
+                <div class="field-group">
+                    <label>
+                        <span class="tooltip">Age <span class="tip-icon">?</span>
+                            <span class="tip-text">Applicant's age in years</span>
+                        </span>
+                        <input type="number" name="Age" class="field" data-type="number" min="18" max="80" placeholder="e.g. 30">
+                    </label>
+                    <label>
+                        Gender
+                        <select name="Gender" class="field">
+                            <option value="">Select…</option>
+                            <option>Male</option>
+                            <option>Female</option>
+                        </select>
+                    </label>
+                    <label>
+                        Marital Status
+                        <select name="Marital_Status" class="field">
+                            <option value="">Select…</option>
+                            <option>Single</option>
+                            <option>Married</option>
+                        </select>
+                    </label>
+                    <label>
+                        Dependents
+                        <input type="number" name="Dependents" class="field" data-type="number" min="0" max="10" placeholder="0">
+                    </label>
+                    <label>
+                        Education Level
+                        <select name="Education_Level" class="field">
+                            <option value="">Select…</option>
+                            <option>Graduate</option>
+                            <option>Not Graduate</option>
+                        </select>
+                    </label>
+                    <label>
+                        Property Area
+                        <select name="Property_Area" class="field">
+                            <option value="">Select…</option>
+                            <option>Urban</option>
+                            <option>Semiurban</option>
+                            <option>Rural</option>
+                        </select>
+                    </label>
+                </div>
+            </div>
+
+            <!-- SECTION B – Employment & Income -->
+            <div class="section">
+                <h3><i class="fas fa-briefcase"></i> Employment & Income</h3>
+                <div class="field-group">
+                    <label>
+                        Employment Status
+                        <select name="Employment_Status" class="field">
+                            <option value="">Select…</option>
+                            <option>Salaried</option>
+                            <option>Self-employed</option>
+                            <option>Contract</option>
+                            <option>Unemployed</option>
+                        </select>
+                    </label>
+                    <label>
+                        Employer Category
+                        <select name="Employer_Category" class="field">
+                            <option value="">Select…</option>
+                            <option>Private</option>
+                            <option>Government</option>
+                            <option>MNC</option>
+                            <option>Business</option>
+                            <option>Unemployed</option>
+                        </select>
+                    </label>
+                    <label>
+                        <span class="tooltip">Applicant Income <span class="tip-icon">?</span>
+                            <span class="tip-text">Monthly income of the primary applicant</span>
+                        </span>
+                        <input type="number" name="Applicant_Income" class="field" data-type="number" min="0" placeholder="e.g. 8000">
+                    </label>
+                    <label>
+                        <span class="tooltip">Co-applicant Income <span class="tip-icon">?</span>
+                            <span class="tip-text">Monthly income of co-applicant (if any)</span>
+                        </span>
+                        <input type="number" name="Coapplicant_Income" class="field" data-type="number" min="0" placeholder="e.g. 2000">
+                    </label>
+                </div>
+            </div>
+
+            <!-- SECTION C – Financial Details -->
+            <div class="section">
+                <h3><i class="fas fa-coins"></i> Financial Details</h3>
+                <div class="field-group">
+                    <label>
+                        <span class="tooltip">Credit Score <span class="tip-icon">?</span>
+                            <span class="tip-text">Credit score (300–900)</span>
+                        </span>
+                        <input type="number" name="Credit_Score" class="field" data-type="number" min="300" max="900" placeholder="e.g. 720">
+                    </label>
+                    <label>
+                        Existing Loans
+                        <input type="number" name="Existing_Loans" class="field" data-type="number" min="0" placeholder="0">
+                    </label>
+                    <label>
+                        <span class="tooltip">DTI Ratio <span class="tip-icon">?</span>
+                            <span class="tip-text">Debt-to-Income ratio (0 to 1)</span>
+                        </span>
+                        <input type="number" step="0.01" name="DTI_Ratio" class="field" data-type="number" min="0" max="1" placeholder="e.g. 0.3">
+                    </label>
+                    <label>
+                        Savings
+                        <input type="number" name="Savings" class="field" data-type="number" min="0" placeholder="e.g. 15000">
+                    </label>
+                    <label>
+                        Collateral Value
+                        <input type="number" name="Collateral_Value" class="field" data-type="number" min="0" placeholder="e.g. 30000">
+                    </label>
+                </div>
+            </div>
+
+            <!-- SECTION D – Loan Information -->
+            <div class="section">
+                <h3><i class="fas fa-hand-holding-usd"></i> Loan Information</h3>
+                <div class="field-group">
+                    <label>
+                        Loan Amount
+                        <input type="number" name="Loan_Amount" class="field" data-type="number" min="0" placeholder="e.g. 15000">
+                    </label>
+                    <label>
+                        <span class="tooltip">Loan Term <span class="tip-icon">?</span>
+                            <span class="tip-text">Loan duration in months</span>
+                        </span>
+                        <input type="number" name="Loan_Term" class="field" data-type="number" min="0" placeholder="e.g. 60">
+                    </label>
+                    <label>
+                        Loan Purpose
+                        <select name="Loan_Purpose" class="field">
+                            <option value="">Select…</option>
+                            <option>Home</option>
+                            <option>Car</option>
+                            <option>Education</option>
+                            <option>Personal</option>
+                            <option>Business</option>
+                        </select>
+                    </label>
+                </div>
+            </div>
+
+            <!-- ACTION BUTTONS -->
+            <div class="actions">
+                <button id="resetBtn"><i class="fas fa-undo"></i> Reset</button>
+                <button id="predictBtn"><i class="fas fa-bolt"></i> Predict Eligibility</button>
+                <button id="exportPdfBtn"><i class="fas fa-file-pdf"></i> PDF</button>
+            </div>
+
+            <!-- HISTORY -->
+            <div class="history-panel" id="historyPanel">
+                <h4><i class="fas fa-history"></i> Prediction History</h4>
+                <div id="historyList"></div>
+            </div>
+        </section>
+
+        <!-- ========== RESULT CARD ========== -->
+        <section class="result-card" id="resultCard" style="display:none;">
+            <h2><i class="fas fa-robot"></i> AI Assessment</h2>
+
+            <!-- Status badge -->
+            <div class="result-status" id="resultStatus"></div>
+
+            <!-- Circular confidence -->
+            <div class="circular-progress">
+                <canvas id="circularCanvas" width="140" height="140"></canvas>
+                <div class="label" id="circularLabel">
+                    <span>0%</span>
+                    <small>confidence</small>
+                </div>
+            </div>
+
+            <!-- Probability bar -->
+            <div class="bar-section">
+                <div class="bar-label">
+                    <span>Approval Probability</span>
+                    <span id="probPercent">0%</span>
+                </div>
+                <div class="progress-bar">
+                    <div class="fill" id="probFill"></div>
+                </div>
+            </div>
+
+            <!-- Financial cards -->
+            <div class="financial-grid" id="financialGrid"></div>
+
+            <!-- Insights -->
+            <div class="insights" id="insightsBox" style="display:none;">
+                <h3><i class="fas fa-lightbulb"></i> AI Decision Insights</h3>
+                <ul id="insightsList"></ul>
+            </div>
+        </section>
     </div>
+
+    <!-- Loading Overlay -->
+    <div id="loadingOverlay">
+        <div class="loader-ring"></div>
+        <div class="loader-text">Analyzing applicant data…</div>
+    </div>
+
+    <!-- Confetti container (for approved celebration) -->
+    <canvas id="confetti"></canvas>
+
+    <!-- Main Script -->
     <script src="/static/script.js"></script>
 </body>
 </html>
